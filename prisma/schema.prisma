@@ -41,15 +41,23 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+model Company {
+  id           String   @id @default(cuid())
+  companyName  String
+  companyCode  String   @unique
+  isActive     String
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
 model User {
   id            String      @id @default(cuid())
   firstName     String?
   lastName      String?
-  acount        String      
   username      String      @unique
   password      String
   image         String?
+  company       Company?
   accounts      Account[]
   sessions      Session[]
   UserGroup     UserGroup[]
